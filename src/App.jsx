@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 //Components
 import ProgressTracker from './Component/ProgressTracker';
@@ -8,17 +8,47 @@ import TaskList from './Component/TaskList';
 // import './App.css'
 
 function App() {
+  const [tasks, setTask] = useState([]);
+
+  const addTask = (task) => {
+    setTask([...tasks, task])
+  }
+
+  useEffect(()=> {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+
+  const updateTask = (updatedTask , index) => {
+    const newTask = [...tasks];    ////copy tasks
+    newTask[index] = updatedTask;  ////update at that index
+    setTask(newTask);              ///set task
+  }
+
+  const deleteTask = () => {
+
+  }
+
+
+
+
+
+
+
+
  return(
   <div>
     <h1>Task Focus</h1>
     <p>Our Friendly Task Manager</p>
 
 
-    <TaskForm/>
+    <TaskForm addTask = {addTask}/>
+    <TaskList tasks = {tasks} updateTask = {updateTask} deleteTask = {deleteTask}/>
     <ProgressTracker/>
-    <TaskList/>
 
-    <button>Clear All</button>
+    <button onClick={(e) => {localStorage.clear()}}>Clear All</button>
+
+
   </div>
  )
 }
