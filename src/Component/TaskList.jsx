@@ -12,10 +12,10 @@ export default function TaskList({tasks, updateTask, deleteTask}) {
    };
 
   return (
-   <ul>
+   <ul className= "task-list">
     {
       tasks.map((task, index) => (
-        <li key={index}>
+        <li key={index} className = {task.completed ? "completed" : ""}>
           <div>
             <span>
               {task.text} 
@@ -25,7 +25,7 @@ export default function TaskList({tasks, updateTask, deleteTask}) {
             </span> 
 
           <div>
-            <button onClick={() => toggleComplete(index)}>{task.completed ? "UNDO" : "Completed"}</button>
+            <button onClick={() => toggleComplete(index)}> {task.completed ? "UNDO" : "Completed"} </button>
             <button onClick={() => deleteTask(index)}>Delete</button>
           </div>
           </div>

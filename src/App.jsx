@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './Style.css';
 
 //Components
 import ProgressTracker from './Component/ProgressTracker';
@@ -25,29 +26,27 @@ function App() {
     setTask(newTask);              ///set task
   }
 
-  const deleteTask = () => {
 
-  }
+  const deleteTask = (index) => {
+    setTask(tasks.filter((_, i) => i != index));
+  };
 
-
-
-
-
-
-
-
+  
  return(
-  <div>
+  <div className='App'>
     <h1>Task Focus</h1>
     <p>Our Friendly Task Manager</p>
 
 
     <TaskForm addTask = {addTask}/>
     <TaskList tasks = {tasks} updateTask = {updateTask} deleteTask = {deleteTask}/>
-    <ProgressTracker/>
+    <ProgressTracker tasks = {tasks}/>
 
-    <button onClick={(e) => {localStorage.clear()}}>Clear All</button>
 
+    
+    {
+          tasks.length > 0 && (<button className= 'clear-btn' onClick={(e) => {localStorage.removeItem("tasks"); setTask([])}}>Clear All Tasks</button>)
+    }
 
   </div>
  )
